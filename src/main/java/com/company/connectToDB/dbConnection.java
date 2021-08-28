@@ -10,7 +10,7 @@ public class dbConnection {
         Connection connection = null;
 
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11431647", "sql11431647", "xDwxWusqqs");
+            connection = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/finalproject6", "java_group6", "SGT_group6");
         }catch (SQLException e) {
             e.printStackTrace();
         }
