@@ -3,13 +3,14 @@ package com.company.Actions;
 import com.company.Menu.Login;
 import com.company.Menu.Menu;
 import com.company.connectToDB.dbConnection;
+import com.mysql.cj.log.Log;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class TaskManager {
+public class TaskManager extends Login {
 
     private static PreparedStatement ps;
     private static ResultSet rs;
@@ -27,79 +28,52 @@ public class TaskManager {
 
         System.out.println("Enter the task category: "); // user can create his own category if needed e.g.: shopping, holidays, work etc.
         String category = scanner.next();
+        category += scanner.nextLine();
 
         System.out.println("Enter one of the statuses 'Have to do', 'In progress' or 'Done': ");
         String status = scanner.next();
         status += scanner.nextLine();
 
-        System.out.println("Enter the date YYYY-MM-DD (deadline) till when task has to be finished (if any): ");
+        System.out.println("Enter the deadline date YYYY-MM-DD (if any): ");
         String deadline = scanner.next();
 
         try {
-            //have to define user ID from login data
-            ps = dbConnection.getConnection().prepareStatement("INSERT INTO Tasks(Task, Priority, Category, Status, Deadline) " +
-                    "VALUES ('" + task + "', '" + priority + "', '" + category + "', '" + status + "', '" + deadline + "')");
+            ps = dbConnection.getConnection().prepareStatement("INSERT INTO Tasks(Task, Priority, Category, Status, Deadline, User_ID) " +
+                    "VALUES ('" + task + "', '" + priority + "', '" + category + "', '" + status + "', '" + deadline + "', " + currentUserID + ")");
             ps.execute();
-            System.out.println("Task added. Do you wish to: ");
-            System.out.println(" ");
-            System.out.println("1. Add another task; ");
-            System.out.println("2. Return to the main menu; ");
-            System.out.println("3. Log out and close the program? ");
-            System.out.println(" ");
-
-            System.out.print("Select an option by entering its number: ");
-            int option = scanner.nextInt();
-
-            switch(option) {
-                case 1:
-                    TaskManager.addNewTask();
-                    break;
-                case 2:
-                    Menu.mainMenu();
-                    break;
-                case 3:
-                    System.out.println("You have cancelled any further actions and closed the program.");
-                    break;
-                default:
-                    System.out.println("Invalid option. You have been redirected to the main menu.");
-                    Menu.mainMenu();
-            }
+            System.out.println("Task added successfully.");
 
         } catch (SQLException e) {
+            System.out.println("Failed to add the task. Please try again.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void editTask() {
+
+        System.out.println("Enter the ID number of the task you wish to edit");
+        int id = scanner.nextInt();
+
+        System.out.println("You can now update your: task, priority, category, status, deadline.");
+
+        System.out.println("Enter the field you want to edit: \n");
+        String field = scanner.next();
+
+        System.out.println("Enter the updated value: \n");
+        String fieldUpdate = scanner.next();
+        fieldUpdate += scanner.nextLine();
+
+        try {
+            ps = dbConnection.getConnection().prepareStatement("UPDATE Tasks SET " + field + " = '" + fieldUpdate + "' WHERE ID = " + id);
+            ps.execute();
+            System.out.println("Successfully updated field.");
+        } catch (SQLException e) {
+            System.out.println("Failed to updated field. Please try again.");
             e.printStackTrace();
         }
     }
 
     public static void deleteTask() {
-
-        int userId = 1; // this has to be removed, id has to be taken from login data.
-
-        System.out.println("Here are your current tasks: ");
-
-        try {
-            ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + userId);
-            rs = ps.executeQuery();
-
-            int taskId, priority;
-            String task, category, status, deadline;
-
-            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
-
-            while(rs.next()) {
-                taskId = rs.getInt("ID");
-                task = rs.getString("Task");
-                priority = rs.getInt("Priority");
-                category = rs.getString("Category");
-                status = rs.getString("Status");
-                deadline = rs.getString("Deadline");
-
-                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
-                System.out.println(" ");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         System.out.print("Enter the ID number of the task you wish to remove: ");
         int id = scanner.nextInt();
@@ -125,35 +99,6 @@ public class TaskManager {
 
     public static void completeAndArchiveTask() {
 
-        int userId = 1; // this has to be removed, id has to be taken from login data.
-
-        System.out.println("Here are your current tasks: ");
-
-        try {
-            ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + userId);
-            rs = ps.executeQuery();
-
-            int taskId, priority;
-            String task, category, status, deadline;
-
-            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
-
-            while(rs.next()) {
-                taskId = rs.getInt("ID");
-                task = rs.getString("Task");
-                priority = rs.getInt("Priority");
-                category = rs.getString("Category");
-                status = rs.getString("Status");
-                deadline = rs.getString("Deadline");
-
-                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
-                System.out.println(" ");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         System.out.print("Enter the completed task's ID number: ");
         int id = scanner.nextInt();
 
@@ -172,35 +117,6 @@ public class TaskManager {
     }
 
     public static void returnTaskFromArchive() {
-
-        int userId = 1; // this has to be removed, id has to be taken from login data.
-
-        System.out.println("Here are your archived tasks: ");
-
-        try {
-            ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Task_archive WHERE User_ID=" + userId);
-            rs = ps.executeQuery();
-
-            int taskId, priority;
-            String task, category, status, deadline;
-
-            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
-
-            while(rs.next()) {
-                taskId = rs.getInt("ID");
-                task = rs.getString("Task");
-                priority = rs.getInt("Priority");
-                category = rs.getString("Category");
-                status = rs.getString("Status");
-                deadline = rs.getString("Deadline");
-
-                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
-                System.out.println(" ");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         System.out.print("Enter the ID number of the task you wish to pull back from archive: ");
         int id = scanner.nextInt();
@@ -221,12 +137,29 @@ public class TaskManager {
 
     public static void clearArchive(){
 
-        int userId = 1; // this has to be removed, id has to be taken from login data.
+        System.out.println("Are you sure you wish to clear the archive? Enter 'Y' for yes or 'N' for no.");
+        String answer = scanner.next();
 
-        System.out.println("Here are your archived tasks: ");
+        if (answer.equals("y") || answer.equals("Y")) {
+            try {
+                ps = dbConnection.getConnection().prepareStatement("DELETE FROM Task_archive WHERE User_ID=" + currentUserID);
+                ps.execute();
+
+                System.out.println("Task archive cleared successfully.");
+
+            } catch (SQLException e) {
+                System.out.println("Could not clear the archive. Try again!");
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Action cancelled. The archive was not cleared.");
+        }
+    }
+
+    public static void seeActiveTasksByID() {
 
         try {
-            ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Task_archive WHERE User_ID=" + userId);
+            ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID);
             rs = ps.executeQuery();
 
             int taskId, priority;
@@ -249,23 +182,33 @@ public class TaskManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
-        System.out.println("Are you sure you wish to clear the archive? Enter Y for yes or N for no.");
-        String answer = scanner.next();
+    public static void seeTaskArchiveByID() {
 
-        if (answer.equals("y") || answer.equals("Y")) {
-            try {
-                ps = dbConnection.getConnection().prepareStatement("DELETE FROM Task_archive");
-                ps.execute();
+        try {
+            ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Task_archive WHERE User_ID=" + currentUserID);
+            rs = ps.executeQuery();
 
-                System.out.println("Task archive cleared successfully");
+            int taskId, priority;
+            String task, category, status, deadline;
 
-            } catch (SQLException e) {
-                System.out.println("Could not clear the archive. Try again!");
-                e.printStackTrace();
+            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+
+            while(rs.next()) {
+                taskId = rs.getInt("ID");
+                task = rs.getString("Task");
+                priority = rs.getInt("Priority");
+                category = rs.getString("Category");
+                status = rs.getString("Status");
+                deadline = rs.getString("Deadline");
+
+                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.println(" ");
             }
-        } else {
-            System.out.println("Action cancelled. The archive was not cleared.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
