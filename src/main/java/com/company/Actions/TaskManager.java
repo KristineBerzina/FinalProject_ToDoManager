@@ -211,4 +211,138 @@ public class TaskManager extends Login {
             e.printStackTrace();
         }
     }
+
+    public static void sortByPriority() {
+        try {
+            ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID + " ORDER BY Priority ASC");
+            int taskId, priority;
+            String task, category, status, deadline;
+
+            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            rs = ps.executeQuery();
+
+            while(rs.next()) {
+                taskId = rs.getInt("ID");
+                task = rs.getString("Task");
+                priority = rs.getInt("Priority");
+                category = rs.getString("Category");
+                status = rs.getString("Status");
+                deadline = rs.getString("Deadline");
+
+                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.println(" ");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void sortByCategory() {
+        try {
+            ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID + " ORDER BY Category ASC");
+            int taskId, priority;
+            String task, category, status, deadline;
+
+            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            rs = ps.executeQuery();
+
+            while(rs.next()) {
+                taskId = rs.getInt("ID");
+                task = rs.getString("Task");
+                priority = rs.getInt("Priority");
+                category = rs.getString("Category");
+                status = rs.getString("Status");
+                deadline = rs.getString("Deadline");
+
+                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.println(" ");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void sortByStatus() {
+        try {
+            ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID + " AND Status = 'Have to do'");
+            rs = ps.executeQuery();
+
+            int taskId, priority;
+            String task, category, status, deadline;
+
+            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+
+            while(rs.next()) {
+                taskId = rs.getInt("ID");
+                task = rs.getString("Task");
+                priority = rs.getInt("Priority");
+                category = rs.getString("Category");
+                status = rs.getString("Status");
+                deadline = rs.getString("Deadline");
+
+                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.println(" ");
+            }
+            ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID + " AND Status = 'In progress'");
+            rs = ps.executeQuery();
+
+            while(rs.next()) {
+                taskId = rs.getInt("ID");
+                task = rs.getString("Task");
+                priority = rs.getInt("Priority");
+                category = rs.getString("Category");
+                status = rs.getString("Status");
+                deadline = rs.getString("Deadline");
+
+                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.println(" ");
+            }
+            ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID + " AND Status = 'Done'");
+            rs = ps.executeQuery();
+
+            while(rs.next()) {
+                taskId = rs.getInt("ID");
+                task = rs.getString("Task");
+                priority = rs.getInt("Priority");
+                category = rs.getString("Category");
+                status = rs.getString("Status");
+                deadline = rs.getString("Deadline");
+
+                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.println(" ");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Failed to sort tasks. Please try again!");
+            e.printStackTrace();
+        }
+    }
+
+    public static void sortByDeadline() {
+        try {
+            ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID + " ORDER BY Deadline ASC");
+            int taskId, priority;
+            String task, category, status, deadline;
+
+            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            rs = ps.executeQuery();
+
+            while(rs.next()) {
+                taskId = rs.getInt("ID");
+                task = rs.getString("Task");
+                priority = rs.getInt("Priority");
+                category = rs.getString("Category");
+                status = rs.getString("Status");
+                deadline = rs.getString("Deadline");
+
+                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.println(" ");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
