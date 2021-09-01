@@ -18,7 +18,7 @@ public class TaskManager extends Login {
 
     public static void addNewTask() {
 
-        System.out.println("Please enter the new task (max. 500 symbols): ");
+        System.out.println("Please enter the new task (max. 60 symbols): ");
         String task = scanner.next();
         task += scanner.nextLine();
 
@@ -26,7 +26,7 @@ public class TaskManager extends Login {
         System.out.println("NOTE: priority number 1 - high importance, 2 - medium importance, or 3 - low importance.");
         int priority = scanner.nextInt();
 
-        System.out.println("Enter the task category: "); // user can create his own category if needed e.g.: shopping, holidays, work etc.
+        System.out.println("Enter the task category of your choice (e.g. Shopping, Work, Home etc; max. 20 symbols): ");
         String category = scanner.next();
         category += scanner.nextLine();
 
@@ -34,7 +34,7 @@ public class TaskManager extends Login {
         String status = scanner.next();
         status += scanner.nextLine();
 
-        System.out.println("Enter the deadline date YYYY-MM-DD (if any): ");
+        System.out.println("Enter the deadline date YYYYMMDD: ");
         String deadline = scanner.next();
 
         try {
@@ -51,7 +51,7 @@ public class TaskManager extends Login {
 
     public static void editTask() {
 
-        System.out.println("Enter the ID number of the task you wish to edit");
+        System.out.print("Enter the ID number of the task you wish to edit");
         int id = scanner.nextInt();
 
         System.out.println("You can now update your: task, priority, category, status, deadline.");
@@ -159,14 +159,14 @@ public class TaskManager extends Login {
     public static void seeActiveTasksByID() {
 
         try {
-//            int currentUserID = 15;
             ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID);
             rs = ps.executeQuery();
 
             int taskId, priority;
             String task, category, status, deadline;
-
-            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| ID", "| Task", "| Priority", "| Category", "| Status", "| Deadline   |");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
 
             while(rs.next()) {
                 taskId = rs.getInt("ID");
@@ -176,8 +176,9 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
-                System.out.println(" ");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| "+taskId, "| "+task, "| "+priority, "| "+category, "| "+status, "| "+deadline+" |");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+
             }
 
         } catch (SQLException e) {
@@ -194,7 +195,9 @@ public class TaskManager extends Login {
             int taskId, priority;
             String task, category, status, deadline;
 
-            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| ID", "| Task", "| Priority", "| Category", "| Status", "| Deadline   |");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
 
             while(rs.next()) {
                 taskId = rs.getInt("ID");
@@ -204,8 +207,9 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
-                System.out.println(" ");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| "+taskId, "| "+task, "| "+priority, "| "+category, "| "+status, "| "+deadline+" |");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+
             }
 
         } catch (SQLException e) {
@@ -219,7 +223,10 @@ public class TaskManager extends Login {
             int taskId, priority;
             String task, category, status, deadline;
 
-            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| ID", "| Task", "| Priority", "| Category", "| Status", "| Deadline   |");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+
             rs = ps.executeQuery();
 
             while(rs.next()) {
@@ -230,8 +237,9 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
-                System.out.println(" ");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| "+taskId, "| "+task, "| "+priority, "| "+category, "| "+status, "| "+deadline+" |");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+
             }
 
         } catch (SQLException e) {
@@ -245,7 +253,10 @@ public class TaskManager extends Login {
             int taskId, priority;
             String task, category, status, deadline;
 
-            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| ID", "| Task", "| Priority", "| Category", "| Status", "| Deadline   |");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+
             rs = ps.executeQuery();
 
             while(rs.next()) {
@@ -256,8 +267,9 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
-                System.out.println(" ");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| "+taskId, "| "+task, "| "+priority, "| "+category, "| "+status, "| "+deadline+" |");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+
             }
 
         } catch (SQLException e) {
@@ -273,7 +285,9 @@ public class TaskManager extends Login {
             int taskId, priority;
             String task, category, status, deadline;
 
-            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| ID", "| Task", "| Priority", "| Category", "| Status", "| Deadline   |");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
 
             while(rs.next()) {
                 taskId = rs.getInt("ID");
@@ -283,8 +297,9 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
-                System.out.println(" ");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| "+taskId, "| "+task, "| "+priority, "| "+category, "| "+status, "| "+deadline+" |");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+
             }
             ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID + " AND Status = 'In progress'");
             rs = ps.executeQuery();
@@ -297,8 +312,9 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
-                System.out.println(" ");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| "+taskId, "| "+task, "| "+priority, "| "+category, "| "+status, "| "+deadline+" |");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+
             }
             ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID + " AND Status = 'Done'");
             rs = ps.executeQuery();
@@ -311,8 +327,9 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
-                System.out.println(" ");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| "+taskId, "| "+task, "| "+priority, "| "+category, "| "+status, "| "+deadline+" |");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+
             }
 
         } catch (SQLException e) {
@@ -327,7 +344,10 @@ public class TaskManager extends Login {
             int taskId, priority;
             String task, category, status, deadline;
 
-            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| ID", "| Task", "| Priority", "| Category", "| Status", "| Deadline   |");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+
             rs = ps.executeQuery();
 
             while(rs.next()) {
@@ -338,8 +358,9 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
-                System.out.println(" ");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "| "+taskId, "| "+task, "| "+priority, "| "+category, "| "+status, "| "+deadline+" |");
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "|------", "|-----------------------------------------------------------------", "|---------", "|-------------------------", "|---------------", "|------------|");
+
             }
 
         } catch (SQLException e) {

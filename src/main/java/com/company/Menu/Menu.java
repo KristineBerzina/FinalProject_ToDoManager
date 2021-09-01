@@ -73,8 +73,9 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(" ");
-        System.out.println("Here are your active tasks:");
+        System.out.println("HERE ARE YOUR ACTIVE TASKS:");
         TaskManager.seeActiveTasksByID();
+        System.out.println(" ");
         System.out.println("What would you like to do next?");
         System.out.println(" ");
         System.out.println("1. Add new task");
@@ -140,6 +141,7 @@ public class Menu {
     public static void taskMenu2() {
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println(" ");
         System.out.println("What would you like to do next?");
         System.out.println(" ");
         System.out.println("1. Add new task");
@@ -206,8 +208,9 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(" ");
-        System.out.println("Here is your task archive:");
+        System.out.println("HERE IS YOUR TASK ARCHIVE:");
         TaskManager.seeTaskArchiveByID();
+        System.out.println(" ");
         System.out.println("What would you like to do next?");
         System.out.println(" ");
         System.out.println("1. Return a task from archive");
