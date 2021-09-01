@@ -159,13 +159,14 @@ public class TaskManager extends Login {
     public static void seeActiveTasksByID() {
 
         try {
+//            int currentUserID = 15;
             ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID);
             rs = ps.executeQuery();
 
             int taskId, priority;
             String task, category, status, deadline;
 
-            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
 
             while(rs.next()) {
                 taskId = rs.getInt("ID");
@@ -175,7 +176,7 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
                 System.out.println(" ");
             }
 
@@ -193,7 +194,7 @@ public class TaskManager extends Login {
             int taskId, priority;
             String task, category, status, deadline;
 
-            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
 
             while(rs.next()) {
                 taskId = rs.getInt("ID");
@@ -203,7 +204,7 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
                 System.out.println(" ");
             }
 
@@ -218,7 +219,7 @@ public class TaskManager extends Login {
             int taskId, priority;
             String task, category, status, deadline;
 
-            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
             rs = ps.executeQuery();
 
             while(rs.next()) {
@@ -229,7 +230,7 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
                 System.out.println(" ");
             }
 
@@ -244,7 +245,7 @@ public class TaskManager extends Login {
             int taskId, priority;
             String task, category, status, deadline;
 
-            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
             rs = ps.executeQuery();
 
             while(rs.next()) {
@@ -255,7 +256,7 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
                 System.out.println(" ");
             }
 
@@ -272,7 +273,7 @@ public class TaskManager extends Login {
             int taskId, priority;
             String task, category, status, deadline;
 
-            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
 
             while(rs.next()) {
                 taskId = rs.getInt("ID");
@@ -282,7 +283,7 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
                 System.out.println(" ");
             }
             ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID + " AND Status = 'In progress'");
@@ -296,7 +297,7 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
                 System.out.println(" ");
             }
             ps = dbConnection.getConnection().prepareStatement("SELECT * FROM Tasks WHERE User_ID=" + currentUserID + " AND Status = 'Done'");
@@ -310,7 +311,7 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
                 System.out.println(" ");
             }
 
@@ -326,7 +327,7 @@ public class TaskManager extends Login {
             int taskId, priority;
             String task, category, status, deadline;
 
-            System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
+            System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", "ID", "Task", "Priority", "Category", "Status", "Deadline");
             rs = ps.executeQuery();
 
             while(rs.next()) {
@@ -337,7 +338,7 @@ public class TaskManager extends Login {
                 status = rs.getString("Status");
                 deadline = rs.getString("Deadline");
 
-                System.out.printf("%-10s %-30.30s %-10s %-15.15s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
+                System.out.printf("%-7s %-65.65s %-10s %-25.25s %-15.15s %-10s\n", taskId, task, priority, category, status, deadline);
                 System.out.println(" ");
             }
 

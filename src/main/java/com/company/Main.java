@@ -9,8 +9,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Menu.startMenu();
-
+//        Menu.startMenu();
+        TaskManager.seeActiveTasksByID();
 
     }
 }
