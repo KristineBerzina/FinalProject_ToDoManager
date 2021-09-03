@@ -22,6 +22,7 @@ public class TaskManager extends Login {
         String task = scanner.next();
         task += scanner.nextLine();
 
+
         System.out.println("Enter the task priority number 1, 2 or 3: ");
         System.out.println("NOTE: priority number 1 - high importance, 2 - medium importance, or 3 - low importance.");
         int priority = scanner.nextInt();
